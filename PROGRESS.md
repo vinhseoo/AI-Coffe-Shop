@@ -58,8 +58,41 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 
 ---
 
-## GIAI ĐOẠN 1 — AUTH & SETTINGS MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 1 — AUTH & SETTINGS MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ DB Migration | `db/migration/V1__init_auth_tables.sql` | Tạo bảng `users` + `shop_settings` |
+| ✅ User Entity | `model/entity/User.java` | username, email, passwordHash, role, isActive |
+| ✅ ShopSettings Entity | `model/entity/ShopSettings.java` | @OneToOne User, giờ mở/đóng, taxRate |
+| ✅ Auth DTOs | `dto/request/auth/` | RegisterRequest, LoginRequest, ChangePasswordRequest |
+| ✅ Settings DTO | `dto/request/settings/ShopSettingsRequest.java` | Validation: time format, taxRate range |
+| ✅ Auth Responses | `dto/response/auth/` | UserResponse, AuthResponse với factory methods |
+| ✅ Settings Response | `dto/response/settings/ShopSettingsResponse.java` | Format LocalTime → "HH:mm" |
+| ✅ UserRepository | `repository/UserRepository.java` | findByUsername, findByEmail, existsBy... |
+| ✅ ShopSettingsRepository | `repository/ShopSettingsRepository.java` | findByUserId |
+| ✅ AuthService | `service/AuthService.java` | register, login, getCurrentUser, changePassword |
+| ✅ ShopSettingsService | `service/ShopSettingsService.java` | getSettings, updateSettings |
+| ✅ UserDetailsServiceImpl | `security/UserDetailsServiceImpl.java` | Wired với UserRepository |
+| ✅ AuthController | `controller/AuthController.java` | POST /register, /login, GET /me, PUT /change-password |
+| ✅ ShopSettingsController | `controller/ShopSettingsController.java` | GET + PUT /api/settings |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ auth.ts | `lib/auth.ts` | login(), register(), logout() + cookie dual-write |
+| ✅ settingsStore | `store/settingsStore.ts` | Zustand store: settings, isLoaded |
+| ✅ useSettings Hook | `hooks/useSettings.ts` | Fetch + updateSettings + toast |
+| ✅ Sidebar | `components/layout/Sidebar.tsx` | Nav icons, collapsible, active state, shopName |
+| ✅ Header | `components/layout/Header.tsx` | Page title, user avatar, dropdown, logout |
+| ✅ MainLayout | `components/layout/MainLayout.tsx` | Sidebar + Header + main |
+| ✅ Dashboard Layout | `app/(dashboard)/layout.tsx` | Auth guard + Spinner |
+| ✅ Login Page | `app/login/page.tsx` | Coffee gradient design, validation |
+| ✅ Register Page | `app/register/page.tsx` | Same design, 6 fields |
+| ✅ Settings Page | `app/(dashboard)/settings/page.tsx` | Tab: thông tin quán + đổi mật khẩu |
+| ✅ Dashboard Page | `app/(dashboard)/dashboard/page.tsx` | Placeholder với stat cards + chart placeholder |
+| ✅ Root Page | `app/page.tsx` | Redirect → /dashboard |
 
 ---
 
