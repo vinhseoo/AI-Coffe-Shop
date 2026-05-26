@@ -137,8 +137,28 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 
 ---
 
-## GIAI ĐOẠN 5 — INVENTORY MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 5 — INVENTORY MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ DB Migration | `db/migration/V5__inventory_logs.sql` | Schema lưu log nhập xuất kho, index tối ưu hóa cho AI forecast |
+| ✅ InventoryLog Entity | `model/entity/InventoryLog.java` | Thực thể lưu log giao dịch kho (phép nhập, xuất, cân đối) |
+| ✅ Supplier CRUD | `controller/SupplierController.java`, `service/SupplierService.java` | Quản lý thông tin nhà cung cấp |
+| ✅ Inventory CRUD | `controller/InventoryController.java`, `service/InventoryService.java` | Nghiệp vụ nhập kho hàng loạt, xuất kho, cân đối kho và tải logs |
+| ✅ AI Integration | `controller/InventoryAIController.java`, `service/ai/InventoryAIService.java` | Phân tích Gemini: Dự báo mua hàng 7 ngày tới, phát hiện thất thoát bất thường |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ custom Hook | `hooks/useInventory.ts` | Trạng thái và hàm call API cho toàn bộ các chức năng của Kho |
+| ✅ StockTable Component | `components/inventory/StockTable.tsx` | Bảng hiển thị tồn kho với thanh phần trăm và badge cảnh báo động |
+| ✅ ImportForm Component | `components/inventory/ImportForm.tsx` | Form nhập kho nhiều dòng, tự tính tiền |
+| ✅ AIForecastCard | `components/inventory/AIForecastCard.tsx` | Hiển thị kết quả dự đoán và bất thường từ AI |
+| ✅ Modals | `components/inventory/*Modal.tsx` | Các popup thêm/sửa nguyên liệu, nhà cung cấp, cân đối số lượng |
+| ✅ Main Inventory Page | `app/(dashboard)/inventory/page.tsx` | Bảng điều khiển chính với các tab: Tồn kho, Nhà cung cấp, Nhật ký biến động |
+| ✅ Sub-pages | `app/(dashboard)/inventory/import/page.tsx`, `ai-forecast/page.tsx` | Trang biểu mẫu nhập kho hàng loạt và trang phân tích dữ liệu AI |
+
 
 ---
 

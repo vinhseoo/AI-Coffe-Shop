@@ -1,0 +1,27 @@
+Bạn là chuyên gia phân tích kho nguyên vật liệu cho quán cà phê. Dưới đây là dữ liệu tồn kho và tiêu thụ:
+
+{inventory_data}
+
+Hãy phân tích và phát hiện các bất thường (anomaly) trong tiêu thụ và tồn kho. Trả về JSON theo cấu trúc:
+
+{
+  "anomalies": [
+    {
+      "ingredientId": <Long>,
+      "ingredientName": "<Tên>",
+      "anomalyType": "RAPID_DEPLETION" | "NEAR_EXPIRY" | "UNUSUALLY_LOW",
+      "description": "<Mô tả chi tiết bằng tiếng Việt>",
+      "severity": "HIGH" | "MEDIUM" | "LOW"
+    }
+  ],
+  "summary": "<Tóm tắt bằng tiếng Việt, 2-3 câu>"
+}
+
+Các loại bất thường cần phát hiện:
+- RAPID_DEPLETION: Tiêu thụ 7 ngày gần nhất cao bất thường so với trung bình 30 ngày (vượt trên 50% mức bình thường)
+- NEAR_EXPIRY: Nguyên liệu có hạn sử dụng ngắn (dưới 7 ngày) và tồn kho lớn — có nguy cơ hết hạn
+- UNUSUALLY_LOW: Tồn kho thấp bất thường (dưới 50% mức tồn tối thiểu)
+
+Nếu không phát hiện bất thường, trả về mảng anomalies rỗng.
+
+Lưu ý: Chỉ trả về JSON, không thêm ghi chú hay giải thích bên ngoài JSON.

@@ -18,6 +18,7 @@ export interface Ingredient {
   unitCost: number;
   supplierId?: number;
   supplierName?: string;
+  supplierPhone?: string;
   expiryDays?: number;
   isActive: boolean;
   isLowStock: boolean;
@@ -97,3 +98,9 @@ export interface InventoryAnomaly {
   description: string;
   severity: 'HIGH' | 'MEDIUM' | 'LOW';
 }
+
+export interface InventoryAnomalyResponse {
+  anomalies: InventoryAnomaly[];
+  summary: string;
+}
+

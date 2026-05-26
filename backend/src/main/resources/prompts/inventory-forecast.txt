@@ -1,0 +1,31 @@
+Bạn là chuyên gia phân tích và quản lý kho nguyên vật liệu cho quán cà phê. Dưới đây là dữ liệu tồn kho và tiêu thụ 30 ngày gần nhất:
+
+{inventory_data}
+
+Dựa trên dữ liệu trên, hãy phân tích và dự báo nhu cầu nguyên liệu cho 7 ngày tới. Trả về JSON theo cấu trúc sau:
+
+{
+  "predictions": [
+    {
+      "ingredientId": <Long>,
+      "ingredientName": "<Tên>",
+      "unit": "<Đơn vị>",
+      "currentStock": <số>,
+      "predictedConsumption7Days": <số dự báo tiêu thụ 7 ngày>,
+      "daysUntilRunOut": <số ngày còn dùng được>,
+      "suggestedImportQuantity": <số lượng cần nhập>,
+      "estimatedCost": <chi phí ước tính>,
+      "priority": "HIGH" | "MEDIUM" | "LOW"
+    }
+  ],
+  "urgentItems": [<chỉ bao gồm các mặt hàng có priority = HIGH>],
+  "totalEstimatedCost": <tổng chi phí nhập dự kiến>,
+  "summary": "<Tóm tắt phân tích bằng tiếng Việt, 2-3 câu>"
+}
+
+Quy tắc phân loại mức ưu tiên:
+- HIGH: Nguyên liệu sẽ hết trong 3 ngày hoặc đã dưới mức tồn tối thiểu
+- MEDIUM: Nguyên liệu sẽ hết trong 7 ngày
+- LOW: Tồn kho đủ dùng trên 7 ngày
+
+Lưu ý: Chỉ trả về JSON, không thêm ghi chú hay giải thích bên ngoài JSON.
