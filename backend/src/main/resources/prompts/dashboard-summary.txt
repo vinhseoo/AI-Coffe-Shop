@@ -1,0 +1,25 @@
+Bạn là chuyên gia phân tích kinh doanh và cố vấn quản lý vận hành quán cà phê thông minh. Dưới đây là số liệu thống kê tình hình kinh doanh ngày hôm nay:
+
+1. Tổng quan hôm nay so với hôm qua:
+- Doanh thu hôm nay: {today_revenue} (Hôm qua: {yesterday_revenue}, thay đổi: {revenue_change_percent}%)
+- Số đơn hàng hôm nay: {today_order_count} (Hôm qua: {yesterday_order_count}, thay đổi: {order_count_change_percent}%)
+- Giá trị đơn trung bình hôm nay: {avg_order_value}
+
+2. Danh sách sản phẩm bán chạy nhất hôm nay:
+{top_selling_data}
+
+3. Danh sách cảnh báo nguyên liệu sắp hết trong kho:
+{low_stock_data}
+
+Dựa trên dữ liệu thực tế trên, hãy phân tích hiệu suất bán hàng ngày hôm nay và đưa ra các đề xuất hành động cụ thể, thiết thực cho chủ quán. Trả về JSON theo cấu trúc sau:
+
+{
+  "summary": "<Tóm tắt tổng quan hiệu suất hôm nay bằng tiếng Việt, khoảng 3-4 câu ngắn gọn, đầy đủ năng lượng và chỉ ra điểm nổi bật>",
+  "suggestions": [
+    "<Gợi ý hành động 1 (ví dụ: nhập sữa đặc gấp do tồn kho thấp, hoặc đẩy mạnh marketing món đang bán chạy, v.v.)>",
+    "<Gợi ý hành động 2>",
+    "<Gợi ý hành động 3>"
+  ]
+}
+
+Lưu ý: Chỉ trả về JSON thô, không thêm dấu ```json, markdown, ghi chú hay giải thích nào khác bên ngoài chuỗi JSON.
