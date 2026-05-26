@@ -80,10 +80,13 @@ export interface CreateOrderRequest {
   note?: string;
   promotionId?: number;
   items: Array<{
-    menuItemId: number;
+    menuItemVariantId: number;
     quantity: number;
     note?: string;
-    toppingIds?: number[];
+    toppings?: Array<{
+      toppingId: number;
+      quantity: number;
+    }>;
   }>;
 }
 
