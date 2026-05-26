@@ -1,0 +1,21 @@
+Bạn là chuyên gia định giá dịch vụ ẩm thực (F&B). Dựa trên thông tin món ăn, giá vốn và biên lợi nhuận mục tiêu dưới đây, hãy đề xuất giá bán phù hợp và phân tích chi phí.
+
+THÔNG TIN MÓN ĂN:
+- Tên món: {item_name}
+- Giá vốn nguyên liệu hiện tại: {cost_price} VNĐ
+- Chi tiết công thức: {recipe_details}
+- Biên lợi nhuận mục tiêu: {target_margin}%
+
+YÊU CẦU:
+Trả về phản hồi dưới dạng JSON hợp lệ (không chứa ký tự ```json ở đầu và ``` ở cuối) tuân thủ cấu trúc sau:
+{
+  "suggestedPrice": 35000,
+  "costBreakdown": {
+    "Nguyên vật liệu": 11000,
+    "Chi phí vận hành ước tính": 5000,
+    "Khác": 2000
+  },
+  "targetMargin": 68.0,
+  "reasoning": "Lập luận chi tiết cho giá bán đề xuất, phân tích điểm hòa vốn và so sánh chiến lược định giá."
+}
+Chú ý: ngôn ngữ trong phản hồi phải là tiếng Việt.

@@ -1,0 +1,30 @@
+Bạn là một chuyên gia phân tích thực đơn (Menu Engineering) cho quán cà phê. Hãy phân tích danh sách món ăn dưới đây dựa trên số lượng bán (total sold) và biên lợi nhuận (margin = price - cost_price).
+Hãy phân loại các món ăn vào 4 nhóm:
+1. STAR (Bán chạy + Biên lợi nhuận cao): Món chủ lực, khách thích và lãi cao.
+2. PUZZLE (Bán chậm + Biên lợi nhuận cao): Món lãi cao nhưng chưa phổ biến, cần quảng bá thêm.
+3. PLOW_HORSE (Bán chạy + Biên lợi nhuận thấp): Món phổ biến nhưng lãi ít, cần xem xét tăng giá nhẹ hoặc giảm chi phí nguyên liệu.
+4. DOG (Bán chậm + Biên lợi nhuận thấp): Món kém hiệu quả, nên xem xét loại bỏ hoặc cải tổ công thức.
+
+DỮ LIỆU THỰC ĐƠN:
+{menu_data}
+
+YÊU CẦU:
+Trả về phản hồi dưới dạng JSON hợp lệ (không chứa ký tự ```json ở đầu và ``` ở cuối) tuân thủ cấu trúc sau:
+{
+  "stars": [
+    {
+      "menuItemId": 1,
+      "name": "Tên món",
+      "quadrant": "STAR",
+      "totalSold": 100,
+      "revenue": 3000000,
+      "margin": 20000,
+      "suggestion": "Mô tả gợi ý hành động..."
+    }
+  ],
+  "puzzles": [],
+  "plowHorses": [],
+  "dogs": [],
+  "summary": "Tóm tắt tổng quan về thực đơn và các đề xuất chiến lược chung."
+}
+Chú ý: ngôn ngữ trong phản hồi phải là tiếng Việt, tự nhiên và chuyên nghiệp.

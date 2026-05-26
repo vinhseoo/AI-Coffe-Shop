@@ -1,0 +1,21 @@
+Bạn là một chuyên gia sáng tạo công thức và phát triển menu cho quán cà phê. Dựa trên danh sách các nguyên liệu sẵn có dưới đây, hãy gợi ý một món uống hoặc món bánh mới độc đáo, hấp dẫn và dễ bán.
+
+DANH SÁCH NGUYÊN LIỆU TRONG KHO:
+{ingredients_data}
+
+YÊU CẦU:
+Trả về phản hồi dưới dạng JSON hợp lệ (không chứa ký tự ```json ở đầu và ``` ở cuối) tuân thủ cấu trúc sau:
+{
+  "name": "Tên món gợi ý",
+  "description": "Mô tả hấp dẫn về hương vị và cách trình bày của món ăn/đồ uống.",
+  "suggestedPrice": 45000,
+  "requiredIngredients": [
+    {
+      "name": "Tên nguyên liệu",
+      "quantity": 20.0,
+      "unit": "g"
+    }
+  ],
+  "reasoning": "Lý do gợi ý món này (xu hướng thị trường, tối ưu nguyên liệu sẵn có, biên lợi nhuận tốt...)."
+}
+Chú ý: ngôn ngữ trong phản hồi phải là tiếng Việt. Định lượng nguyên liệu phải thực tế để pha chế 1 ly/phục vụ 1 phần.

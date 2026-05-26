@@ -5,28 +5,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Duration;
-
 @Configuration
-public class OpenAIConfig {
+public class GeminiConfig {
 
-    @Value("${openai.api.key}")
+    @Value("${gemini.api.key}")
     private String apiKey;
 
-    @Value("${openai.base-url:https://api.openai.com/v1}")
+    @Value("${gemini.base-url:https://generativelanguage.googleapis.com/v1beta}")
     private String baseUrl;
 
-    @Value("${openai.model:gpt-4o-mini}")
+    @Value("${gemini.model:gemini-1.5-pro}")
     private String model;
 
-    @Value("${openai.timeout-seconds:60}")
+    @Value("${gemini.timeout-seconds:60}")
     private int timeoutSeconds;
 
-    @Bean(name = "openAiRestTemplate")
-    public RestTemplate openAiRestTemplate() {
+    @Bean(name = "geminiRestTemplate")
+    public RestTemplate geminiRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().set("Authorization", "Bearer " + apiKey);
+            request.getHeaders().set("x-goog-api-key", apiKey);
             request.getHeaders().set("Content-Type", "application/json");
             return execution.execute(request, body);
         });

@@ -11,7 +11,7 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 | Hạng mục | File | Mô tả |
 |----------|------|--------|
 | ✅ Spring Boot project | `pom.xml` | Khởi tạo với dependencies: JPA, Security, Validation, Web, MySQL, Lombok, JWT, Swagger |
-| ✅ Application config | `application.properties` | Cấu hình DB, JWT, OpenAI, CORS, Swagger, logging |
+| ✅ Application config | `application.properties` | Cấu hình DB, JWT, Gemini, CORS, Swagger, logging |
 | ✅ BaseEntity | `model/entity/BaseEntity.java` | Auditing fields: createdAt, updatedAt, createdBy, updatedBy |
 | ✅ JPA Auditing | `config/JpaConfig.java` | Tự động fill createdBy/updatedBy từ Spring Security context |
 | ✅ API Response wrapper | `model/dto/response/ApiResponse.java` | Chuẩn response cho toàn hệ thống |
@@ -20,7 +20,7 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 | ✅ App Exception | `exception/AppException.java` | Custom exception kế thừa RuntimeException |
 | ✅ Global Exception Handler | `exception/GlobalExceptionHandler.java` | Xử lý lỗi tập trung |
 | ✅ Security Config | `config/SecurityConfig.java` | JWT filter chain, CORS, public routes |
-| ✅ OpenAI Config | `config/OpenAIConfig.java` | Bean RestTemplate + API key injection |
+| ✅ Gemini Config | `config/GeminiConfig.java` | Bean RestTemplate + API key injection cho Google Gemini |
 | ✅ JWT Token Provider | `security/JwtTokenProvider.java` | Generate, validate, extract JWT token |
 | ✅ JWT Auth Filter | `security/JwtAuthenticationFilter.java` | Intercept và authenticate JWT per-request |
 | ✅ User Details Service | `security/UserDetailsServiceImpl.java` | Spring Security UserDetails integration |
@@ -101,8 +101,34 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 
 ---
 
-## GIAI ĐOẠN 3 — MENU MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 3 — MENU MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ DB Migration | `db/migration/V2__init_menu_tables.sql` | Schema cho categories, menu_items, toppings, suppliers, ingredients, recipe_ingredients + seed data |
+| ✅ JPA Entities | `model/entity/*.java` | Category, MenuItem, Topping, Supplier, Ingredient, RecipeIngredient |
+| ✅ Enums | `model/enums/ProductSize.java` | S, M, L sizes cho MenuItem |
+| ✅ Repositories | `repository/*.java` | Category, MenuItem, Topping, RecipeIngredient, Ingredient, Supplier Repositories |
+| ✅ Request DTOs | `model/dto/request/menu/*.java` | CategoryRequest, MenuItemRequest, ToppingRequest, RecipeRequest, RecipeItemRequest |
+| ✅ Response DTOs | `model/dto/response/menu/*.java` | CategoryResponse, MenuItemResponse, MenuItemDetailResponse, ToppingResponse, RecipeIngredientResponse, IngredientResponse, MenuAnalysisResponse, MenuAnalysisItem, NewMenuSuggestion, PriceSuggestion |
+| ✅ Services | `service/*.java` | CategoryService, MenuItemService, ToppingService, IngredientService |
+| ✅ AI Service | `service/ai/MenuAIService.java` | Tích hợp OpenAI: phân tích ma trận menu engineering, gợi ý món mới, định giá bán |
+| ✅ AI Prompts | `resources/prompts/*.txt` | menu-analysis.txt, menu-suggest-new.txt, menu-suggest-price.txt |
+| ✅ Controllers | `controller/*.java` | CategoryController, MenuItemController, ToppingController, IngredientController, MenuAIController |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ useMenu Hook | `hooks/useMenu.ts` | Custom hook kết nối API cho thực đơn, danh mục, topping, công thức và AI |
+| ✅ MenuItemCard | `components/menu/MenuItemCard.tsx` | Card hiển thị thông tin món, giá, vốn, toggle bán |
+| ✅ MenuGrid | `components/menu/MenuGrid.tsx` | Grid chứa danh sách card món ăn, hiển thị skeleton và empty state |
+| ✅ MenuItemForm | `components/menu/MenuItemForm.tsx` | Form modal thêm/sửa món ăn, validate đầu vào |
+| ✅ RecipeEditor | `components/menu/RecipeEditor.tsx` | Quản lý công thức (lượng nguyên liệu), tính giá vốn động, định giá AI |
+| ✅ AIMenuAnalysis | `components/menu/AIMenuAnalysis.tsx` | Hiển thị ma trận 4 nhóm (Stars, Puzzles, Plow Horses, Dogs) và nhận định AI |
+| ✅ Menu Page | `app/(dashboard)/menu/page.tsx` | Trang quản lý chính: lọc danh mục, tìm kiếm, quản lý Category và món ăn |
+| ✅ Detail Page | `app/(dashboard)/menu/[id]/page.tsx` | Trang chi tiết: cập nhật thông tin món và cấu hình công thức nấu |
+| ✅ AI Suggest Page | `app/(dashboard)/menu/ai-suggest/page.tsx` | Trang phân tích ma trận bán hàng và nhận gợi ý sáng tạo món uống mới |
 
 ---
 

@@ -46,6 +46,8 @@ export interface ShopSettings {
   logoUrl?: string;
   description?: string;
   wifiPassword?: string;
+  socialFacebook?: string;
+  socialInstagram?: string;
   currency: string;
   taxRate: number;
 }
