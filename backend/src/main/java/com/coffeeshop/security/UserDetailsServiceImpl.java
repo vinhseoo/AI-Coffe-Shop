@@ -1,38 +1,36 @@
 package com.coffeeshop.security;
 
+import com.coffeeshop.model.entity.User;
+import com.coffeeshop.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Spring Security UserDetailsService implementation.
- *
- * Stub: Wire với UserRepository khi hoàn thành Module Auth (Phase 1).
- * Xem PLAN.md → Phase 1.1 để biết cách implement đầy đủ.
- */
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    // TODO Phase 1: Uncomment và inject UserRepository sau khi tạo User entity
-    // private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Phase 1: Thay thế bằng logic thực:
-        //
-        // User user = userRepository.findByUsername(username)
-        //     .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy user: " + username));
-        //
-        // return org.springframework.security.core.userdetails.User
-        //     .withUsername(user.getUsername())
-        //     .password(user.getPasswordHash())
-        //     .roles(user.getRole().name())
-        //     .accountExpired(!user.isActive())
-        //     .credentialsExpired(false)
-        //     .disabled(!user.isActive())
-        //     .build();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy user: " + username));
 
-        throw new UsernameNotFoundException("UserRepository chưa được wire — hoàn thành Phase 1 trước: " + username);
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPasswordHash())
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())))
+                .accountExpired(false)
+                .credentialsExpired(false)
+                .disabled(!user.isActive())
+                .build();
     }
 }
