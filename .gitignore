@@ -1,0 +1,45 @@
+# =============================================
+# BACKEND (Spring Boot / Maven)
+# =============================================
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/*.log
+
+# =============================================
+# FRONTEND (Next.js)
+# =============================================
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.pnp
+frontend/.pnp.*
+frontend/coverage/
+frontend/next-env.d.ts
+frontend/*.tsbuildinfo
+
+# =============================================
+# ENV / SECRETS (NEVER commit these)
+# =============================================
+.env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-prod.properties
+
+# =============================================
+# IDE / OS
+# =============================================
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.log
+
+# =============================================
+# UPLOADS (runtime generated)
+# =============================================
+backend/uploads/
