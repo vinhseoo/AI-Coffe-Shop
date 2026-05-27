@@ -9,6 +9,8 @@ import com.coffeeshop.model.enums.InventoryAction;
 import com.coffeeshop.model.enums.OrderStatus;
 import com.coffeeshop.model.enums.OrderType;
 import com.coffeeshop.model.enums.PaymentStatus;
+import com.coffeeshop.model.enums.PromotionType;
+import com.coffeeshop.model.dto.response.promotion.PromotionResponse;
 import com.coffeeshop.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,7 @@ public class OrderService {
     private final InventoryLogRepository inventoryLogRepository;
     private final ShopSettingsRepository shopSettingsRepository;
     private final LoyaltyService loyaltyService;
+    private final PromotionService promotionService;
 
     @Transactional(readOnly = true)
     public Page<OrderResponse> getOrders(
@@ -118,13 +121,40 @@ public class OrderService {
             subtotal = subtotal.add(itemSubtotal);
         }
 
+        // Apply discount if promotion is present
+        BigDecimal discountAmount = BigDecimal.ZERO;
+        if (request.getPromotionId() != null) {
+            List<Long> variantIds = request.getItems().stream()
+                    .map(CreateOrderRequest.OrderItemRequest::getMenuItemVariantId)
+                    .collect(Collectors.toList());
+
+            PromotionResponse promoResponse = promotionService.validatePromotion(request.getPromotionId(), subtotal, variantIds);
+            
+            if (promoResponse.getType() == PromotionType.PERCENT) {
+                discountAmount = subtotal.multiply(promoResponse.getValue().divide(BigDecimal.valueOf(100.00)));
+                if (promoResponse.getMaxDiscount() != null && discountAmount.compareTo(promoResponse.getMaxDiscount()) > 0) {
+                    discountAmount = promoResponse.getMaxDiscount();
+                }
+            } else if (promoResponse.getType() == PromotionType.FIXED_AMOUNT) {
+                discountAmount = promoResponse.getValue();
+                if (discountAmount.compareTo(subtotal) > 0) {
+                    discountAmount = subtotal;
+                }
+            }
+            promotionService.incrementUsedCount(request.getPromotionId());
+        }
+
         // Apply tax and calculate totals
         BigDecimal taxMultiplier = taxRate.divide(BigDecimal.valueOf(100));
         BigDecimal taxAmount = subtotal.multiply(taxMultiplier);
-        BigDecimal totalAmount = subtotal.add(taxAmount);
+        BigDecimal totalAmount = subtotal.add(taxAmount).subtract(discountAmount);
+        if (totalAmount.compareTo(BigDecimal.ZERO) < 0) {
+            totalAmount = BigDecimal.ZERO;
+        }
 
         order.setSubtotal(subtotal);
         order.setTaxAmount(taxAmount);
+        order.setDiscountAmount(discountAmount);
         order.setTotalAmount(totalAmount);
 
         // Pre-save to generate orderCode

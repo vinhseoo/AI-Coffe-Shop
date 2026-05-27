@@ -1,0 +1,22 @@
+Bạn là một chuyên gia tư vấn chiến lược Marketing tối ưu hóa doanh số cho quán cà phê. Dựa trên dữ liệu tồn kho nguyên liệu sắp hết hạn/còn dư thừa nhiều và xu hướng bán hàng của quán dưới đây, hãy đề xuất 2-3 chương trình khuyến mãi thực tế và tối ưu.
+
+DỮ LIỆU TỒN KHO NGUYÊN LIỆU (Cần đẩy nhanh để tránh hết hạn hoặc giải phóng kho):
+{inventory_data}
+
+DỮ LIỆU ĐỒ UỐNG BÁN CHẠY & DOANH THU GẦN ĐÂY:
+{sales_data}
+
+YÊU CẦU:
+Trả về phản hồi dưới dạng JSON Array hợp lệ (không chứa ký tự ```json ở đầu và ``` ở cuối) tuân thủ cấu trúc sau:
+[
+  {
+    "name": "Tên chương trình khuyến mãi (Ví dụ: Đồng giá Matcha Latte Giờ Vàng, Mua 1 Tặng 1 Espresso)",
+    "description": "Chi tiết chương trình khuyến mãi và cách thức áp dụng",
+    "type": "PERCENT hoặc FIXED_AMOUNT hoặc BUY_X_GET_Y hoặc FREE_TOPPING",
+    "value": 20.00,
+    "minOrderValue": 50000.00,
+    "reasoning": "Giải thích lý do đề xuất chương trình này dựa trên tồn kho nguyên liệu cụ thể hoặc xu hướng doanh thu hiện tại để thuyết phục chủ quán."
+  }
+]
+
+Chú ý: ngôn ngữ phản hồi phải là tiếng Việt. Trị số chiết khấu ("value") phải phù hợp (Ví dụ: PERCENT từ 5-50%, FIXED_AMOUNT từ 5000-50000đ). Cần đối chiếu chính xác nguyên liệu dư thừa với món nước tương ứng (ví dụ: bột matcha thừa thì làm khuyến mãi trà xanh).

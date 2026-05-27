@@ -210,8 +210,28 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 
 ---
 
-## GIAI ĐOẠN 7 — MARKETING MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 7 — AI MARKETING ASSISTANT MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ DB Migration | `db/migration/V8__init_marketing_tables.sql` | Tạo bảng `promotions` lưu trữ thông tin chương trình khuyến mãi (mã coupon, phần trăm/số tiền giảm, mua X tặng Y, free topping, ngày bắt đầu/hết hạn, limits) |
+| ✅ JPA Entity | `model/entity/Promotion.java` | Định nghĩa thực thể Promotion ánh xạ cơ sở dữ liệu |
+| ✅ Repositories & DTOs | `PromotionRepository.java`, request/response DTOs | Query tìm kiếm, kiểm tra active coupon, DTO cho tạo mới, cập nhật, phản hồi và AI |
+| ✅ Services | `PromotionService.java`, `MarketingAIService.java` | Nghiệp vụ CRUD khuyến mãi, tích hợp Gemini đề xuất chiến dịch marketing từ doanh số & tồn kho nguyên liệu, tính toán khung giờ vàng đăng bài, tạo content caption tự động |
+| ✅ Order Service Update | `OrderService.java` | Tích hợp tính toán tự động khấu trừ tiền khi gán promotion code vào đơn hàng POS |
+| ✅ AI Prompts | `resources/prompts/` | `marketing-caption.txt` và `marketing-promotion.txt` để hướng dẫn Gemini |
+| ✅ Controllers | `PromotionController.java`, `MarketingAIController.java` | REST API endpoint cho promotions CRUD và các tác vụ AI marketing |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ useMarketing Hook | `hooks/useMarketing.ts` | Quản lý state và API calls cho promotions, AI suggestions, content generation, và khung giờ vàng |
+| ✅ Types | `types/marketing.ts` | Định nghĩa kiểu dữ liệu cho Promotion, PromotionType, CaptionRequest, CaptionResponse, PromotionSuggestion |
+| ✅ Marketing Dashboard Page | `app/(dashboard)/marketing/page.tsx` | Dashboard trung tâm hiển thị stats, cố vấn AI đề xuất chiến dịch, phân tích giờ vàng đăng bài |
+| ✅ Promotions CRUD Page | `app/(dashboard)/marketing/promotions/page.tsx` | Trang quản lý, tạo, sửa, xóa các chương trình khuyến mãi, hỗ trợ phân trang và tìm kiếm |
+| ✅ AI Content Generator Page | `app/(dashboard)/marketing/content-generator/page.tsx` | Trang soạn thảo nội dung quảng cáo tự động với AI theo platform (FB, Instagram, TikTok) và tone giọng (vui vẻ, chuyên nghiệp, Gen-Z, sâu lắng) |
+| ✅ Promotion Form Component | `components/marketing/PromotionForm.tsx` | Form nhập/sửa khuyến mãi linh hoạt theo nhiều hình thức giảm giá |
 
 ---
 
