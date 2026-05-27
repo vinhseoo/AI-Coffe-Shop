@@ -34,7 +34,7 @@ export default function LoginPage() {
     try {
       await login({ username: form.username.trim(), password: form.password });
       toast.success('Đăng nhập thành công!');
-      router.push(redirectTo);
+      window.location.href = redirectTo;
     } catch (err: unknown) {
       const apiErr = err as ApiError;
       toast.error(apiErr?.message ?? 'Đăng nhập thất bại, vui lòng thử lại');

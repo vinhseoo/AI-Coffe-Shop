@@ -96,8 +96,19 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 
 ---
 
-## GIAI ĐOẠN 2 — DASHBOARD MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 2 — DASHBOARD MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ Dashboard Controller | `controller/DashboardController.java` | GET /api/dashboard/summary - Trả về thống kê tổng quan doanh thu, đơn hàng, biểu đồ và món bán chạy |
+| ✅ Dashboard Service | `service/DashboardService.java` | Tính toán doanh số hôm nay so với hôm qua, số đơn thành công, tổng giá trị trung bình đơn |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ Dashboard Page | `app/(dashboard)/dashboard/page.tsx` | Trang tổng quan đẹp mắt: Stat Cards, Biểu đồ doanh thu (Recharts), Top sản phẩm bán chạy và Cố vấn AI Insight Card |
+| ✅ AI Insight Card | `components/dashboard/AIInsightCard.tsx` | Hiển thị nhận xét sâu sắc của AI và gợi ý hành động chiến lược |
 
 ---
 
@@ -132,8 +143,23 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 
 ---
 
-## GIAI ĐOẠN 4 — POS MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 4 — POS MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ Order Entity | `model/entity/Order.java` & `OrderItem.java` | Thực thể lưu thông tin đơn hàng, chi tiết món nước, loại phục vụ (DINE_IN/TAKEAWAY), mã bàn |
+| ✅ Order DTOs | `dto/request/order/` & `dto/response/order/` | DTO yêu cầu tạo đơn, xác nhận thanh toán và chi tiết hóa đơn |
+| ✅ Order Controller | `controller/OrderController.java` | API quản lý đơn: tạo đơn, xác nhận trả tiền, cập nhật trạng thái đơn, lọc lịch sử |
+| ✅ Order Service | `service/OrderService.java` | Xử lý tạo đơn, tự động khấu trừ kho (ingredients depletion) dựa trên công thức |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ useOrders Hook | `hooks/useOrders.ts` | Hook kết nối API đơn hàng: tạo, cập nhật trạng thái, xác nhận thanh toán |
+| ✅ POS Page | `app/(dashboard)/pos/page.tsx` | Quầy bán hàng: Chọn món (variants size), giỏ hàng kèm Toppings/Note, Tab Lịch sử tích hợp lọc đa điều kiện và thay đổi trạng thái inline |
+| ✅ Orders Management | `app/(dashboard)/orders/page.tsx` | Trang quản lý đơn hàng trung tâm, theo dõi tiến độ pha chế và thanh toán |
+| ✅ OrderDetailModal | `components/order/OrderDetailModal.tsx` | Popup hiển thị chi tiết hóa đơn, món nước, toppings kèm theo và lịch sử thanh toán |
 
 ---
 

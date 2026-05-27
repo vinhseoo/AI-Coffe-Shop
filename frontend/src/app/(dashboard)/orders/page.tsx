@@ -12,6 +12,7 @@ import { Spinner } from '../../../components/ui/Spinner';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableEmpty } from '../../../components/ui/Table';
 import { formatCurrency, formatDate } from '../../../lib/utils';
 import { Order, OrderStatus, PaymentMethod, PaymentStatus } from '../../../types/order';
+import { ScrollText, Search, RefreshCw, Eye, CreditCard, Coffee, Check, Trash2 } from 'lucide-react';
 
 export default function OrdersPage() {
   const {
@@ -116,7 +117,7 @@ export default function OrdersPage() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center gap-2">
-          📜 Lịch sử & Quản lý đơn hàng
+          <ScrollText className="h-6 w-6 text-amber-850" /> Lịch sử & Quản lý đơn hàng
         </h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Theo dõi trạng thái pha chế tại quầy, cập nhật thanh toán và kiểm tra chi tiết hóa đơn khách hàng.
@@ -155,7 +156,9 @@ export default function OrdersPage() {
             onChange={handleSearchChange}
             className="pl-9"
           />
-          <span className="absolute left-3 top-2.5 text-gray-400">🔍</span>
+          <span className="absolute left-3 top-3 text-gray-450">
+            <Search className="h-4 w-4" />
+          </span>
         </div>
 
         <Select
@@ -177,9 +180,9 @@ export default function OrdersPage() {
               setActiveStatusTab('');
               setPaymentStatusFilter('');
             }}
-            className="w-full justify-center h-10"
+            className="w-full justify-center h-10 gap-1.5"
           >
-            🔄 Reset Bộ lọc
+            <RefreshCw className="h-4 w-4" /> Reset Bộ lọc
           </Button>
         </div>
       </div>
@@ -245,9 +248,9 @@ export default function OrdersPage() {
                               variant="outline"
                               size="sm"
                               onClick={() => handleOpenDetail(order)}
-                              className="py-1 px-2.5 h-8 text-xs border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-blue-950/20 animate-fade-in"
+                              className="py-1 px-2.5 h-8 text-xs border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-blue-950/20 animate-fade-in gap-1.5"
                             >
-                              🔍 Chi tiết
+                              <Eye className="h-3.5 w-3.5" /> Chi tiết
                             </Button>
 
                             {/* Payment actions */}
@@ -256,9 +259,9 @@ export default function OrdersPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleOpenPayConfirm(order)}
-                                className="py-1 px-2.5 h-8 text-xs border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 dark:border-emerald-950/20"
+                                className="py-1 px-2.5 h-8 text-xs border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 dark:border-emerald-950/20 gap-1.5"
                               >
-                                💸 Trả tiền
+                                <CreditCard className="h-3.5 w-3.5" /> Trả tiền
                               </Button>
                             )}
 
@@ -268,9 +271,9 @@ export default function OrdersPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleStatusChange(order.id, 'PREPARING')}
-                                className="py-1 px-2.5 h-8 text-xs border-amber-200 hover:bg-amber-50 hover:text-amber-850"
+                                className="py-1 px-2.5 h-8 text-xs border-amber-200 hover:bg-amber-50 hover:text-amber-850 gap-1.5"
                               >
-                                ⚙️ Làm nước
+                                <Coffee className="h-3.5 w-3.5" /> Làm nước
                               </Button>
                             )}
 
@@ -279,9 +282,9 @@ export default function OrdersPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => handleStatusChange(order.id, 'COMPLETED')}
-                                className="py-1 px-2.5 h-8 text-xs border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600"
+                                className="py-1 px-2.5 h-8 text-xs border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600 gap-1.5"
                               >
-                                ✅ Xong
+                                <Check className="h-3.5 w-3.5" /> Xong
                               </Button>
                             )}
 
@@ -294,9 +297,9 @@ export default function OrdersPage() {
                                     handleStatusChange(order.id, 'CANCELLED');
                                   }
                                 }}
-                                className="py-1 px-2.5 h-8 text-xs border-rose-200 hover:bg-rose-50 hover:text-rose-600 dark:border-rose-950/20"
+                                className="py-1 px-2.5 h-8 text-xs border-rose-200 hover:bg-rose-50 hover:text-rose-600 dark:border-rose-950/20 gap-1.5"
                               >
-                                🗑️ Hủy đơn
+                                <Trash2 className="h-3.5 w-3.5" /> Hủy đơn
                               </Button>
                             )}
                           </div>

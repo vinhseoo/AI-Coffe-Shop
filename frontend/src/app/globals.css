@@ -10,6 +10,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* CaféAI design system custom variables */
+  --color-amber-850: #8b4d1b;
+  --color-gray-150: #f4f5f7;
+  --color-gray-250: #e2e8f0;
+  --color-gray-850: #18222f;
 }
 
 @media (prefers-color-scheme: dark) {

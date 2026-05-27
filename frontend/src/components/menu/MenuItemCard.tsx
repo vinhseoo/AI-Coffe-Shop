@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { MenuItem } from '../../types/menu';
 import { Badge } from '../ui/Badge';
 import { formatCurrency } from '../../lib/utils';
+import { Coffee, Flame, Pencil, ChevronRight, Trash2 } from 'lucide-react';
 
 interface MenuItemCardProps {
   item: MenuItem;
@@ -25,7 +26,7 @@ export function MenuItemCard({ item, onEdit, onDelete, onToggle }: MenuItemCardP
     }
     return (
       <div className="h-40 w-full bg-gradient-to-br from-amber-100 to-amber-200 dark:from-amber-950/40 dark:to-amber-900/40 flex items-center justify-center rounded-t-xl">
-        <span className="text-4xl">☕</span>
+        <Coffee className="h-10 w-10 text-amber-800/60 dark:text-amber-500/60" />
       </div>
     );
   };
@@ -69,8 +70,8 @@ export function MenuItemCard({ item, onEdit, onDelete, onToggle }: MenuItemCardP
             ))}
           </div>
           {item.isBestseller && (
-            <Badge variant="warning" className="shadow-sm">
-              🔥 Bán chạy
+            <Badge variant="warning" className="shadow-sm flex items-center gap-1 text-[10px]">
+              <Flame className="h-3.5 w-3.5" /> Bán chạy
             </Badge>
           )}
         </div>
@@ -81,10 +82,7 @@ export function MenuItemCard({ item, onEdit, onDelete, onToggle }: MenuItemCardP
           className="absolute top-2 right-2 p-1.5 rounded-lg bg-white/90 dark:bg-gray-900/90 text-gray-600 dark:text-gray-300 hover:text-amber-700 dark:hover:text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm backdrop-blur"
           title="Chỉnh sửa nhanh"
         >
-          <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-          </svg>
+          <Pencil className="h-4 w-4" />
         </button>
       </div>
 
@@ -118,7 +116,7 @@ export function MenuItemCard({ item, onEdit, onDelete, onToggle }: MenuItemCardP
             <span className="text-sm font-extrabold text-amber-800 dark:text-amber-400">
               {priceDisplay}
             </span>
-            <span className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5">
+            <span className="text-[10px] text-gray-400 dark:text-gray-550 mt-0.5">
               Vốn: {costDisplay}
             </span>
           </div>
@@ -129,9 +127,7 @@ export function MenuItemCard({ item, onEdit, onDelete, onToggle }: MenuItemCardP
               className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/30 text-amber-850 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-950/50 transition-colors"
             >
               <span>Công thức</span>
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              <ChevronRight className="h-3.5 w-3.5" />
             </Link>
 
             <button
@@ -139,10 +135,7 @@ export function MenuItemCard({ item, onEdit, onDelete, onToggle }: MenuItemCardP
               className="p-1.5 text-gray-400 hover:text-red-600 dark:hover:text-red-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               title="Xóa sản phẩm"
             >
-              <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
+              <Trash2 className="h-4.5 w-4.5" />
             </button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { AIDashboardSummary } from '../../types/dashboard';
+import { Sparkles, RefreshCw, Lightbulb, ChevronDown, ChevronUp, Zap, Bot } from 'lucide-react';
 
 interface AIInsightCardProps {
   aiSummary: AIDashboardSummary | null;
@@ -19,7 +20,7 @@ export function AIInsightCard({ aiSummary, isLoading, onGenerate }: AIInsightCar
 
       <CardHeader className="relative pb-2 flex flex-row items-center justify-between space-y-0">
         <CardTitle className="text-lg font-bold flex items-center gap-2">
-          <span>✨</span> Cố vấn AI Phân tích
+          <Sparkles className="h-5 w-5 text-yellow-300 animate-pulse" /> Cố vấn AI Phân tích
         </CardTitle>
         <button
           onClick={onGenerate}
@@ -35,7 +36,9 @@ export function AIInsightCard({ aiSummary, isLoading, onGenerate }: AIInsightCar
               Đang phân tích...
             </>
           ) : (
-            <>🔄 Phân tích lại</>
+            <>
+              <RefreshCw className="h-3 w-3" /> Phân tích lại
+            </>
           )}
         </button>
       </CardHeader>
@@ -52,15 +55,19 @@ export function AIInsightCard({ aiSummary, isLoading, onGenerate }: AIInsightCar
                 onClick={() => setShowSuggestions(!showSuggestions)}
                 className="flex items-center justify-between w-full text-xs font-semibold text-indigo-100 hover:text-white transition-colors cursor-pointer"
               >
-                <span>💡 ĐỀ XUẤT KHUYẾN NGHỊ</span>
-                <span>{showSuggestions ? '▼' : '▲'}</span>
+                <span className="flex items-center gap-1.5">
+                  <Lightbulb className="h-4 w-4 text-yellow-300" /> ĐỀ XUẤT KHUYẾN NGHỊ
+                </span>
+                <span>
+                  {showSuggestions ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
+                </span>
               </button>
 
               {showSuggestions && (
                 <ul className="mt-3 space-y-2 text-xs">
                   {aiSummary.suggestions.map((suggestion, idx) => (
                     <li key={idx} className="flex gap-2 bg-white/5 rounded-lg p-2.5 hover:bg-white/10 transition-colors">
-                      <span className="text-yellow-300 shrink-0">⚡</span>
+                      <Zap className="h-3.5 w-3.5 text-yellow-300 shrink-0 mt-0.5" />
                       <span className="text-indigo-50">{suggestion}</span>
                     </li>
                   ))}
@@ -70,7 +77,7 @@ export function AIInsightCard({ aiSummary, isLoading, onGenerate }: AIInsightCar
           </>
         ) : (
           <div className="flex flex-col items-center justify-center py-8 text-center space-y-3">
-            <span className="text-4xl">🤖</span>
+            <Bot className="h-10 w-10 text-indigo-200 animate-bounce" />
             <div className="space-y-1">
               <p className="text-sm font-semibold text-indigo-100">Chưa có dữ liệu phân tích hôm nay</p>
               <p className="text-xs text-indigo-200">Nhấp vào nút bên dưới để Cố vấn AI phân tích dữ liệu bán hàng.</p>
@@ -78,9 +85,9 @@ export function AIInsightCard({ aiSummary, isLoading, onGenerate }: AIInsightCar
             <button
               onClick={onGenerate}
               disabled={isLoading}
-              className="mt-2 px-4 py-2 bg-white text-indigo-700 hover:bg-indigo-50 font-semibold rounded-xl text-xs shadow-md transition-all cursor-pointer"
+              className="mt-2 px-4 py-2 bg-white text-indigo-700 hover:bg-indigo-50 font-semibold rounded-xl text-xs shadow-md transition-all cursor-pointer flex items-center gap-1.5"
             >
-              Yêu cầu AI phân tích ngay
+              <Sparkles className="h-3.5 w-3.5 text-indigo-650" /> Yêu cầu AI phân tích ngay
             </button>
           </div>
         )}

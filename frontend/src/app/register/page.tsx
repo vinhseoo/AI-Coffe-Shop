@@ -47,7 +47,7 @@ export default function RegisterPage() {
         phone: form.phone.trim() || undefined,
       });
       toast.success('Đăng ký thành công! Chào mừng bạn đến với CaféAI');
-      router.push('/dashboard');
+      window.location.href = '/dashboard';
     } catch (err: unknown) {
       const apiErr = err as ApiError;
       toast.error(apiErr?.message ?? 'Đăng ký thất bại, vui lòng thử lại');

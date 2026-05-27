@@ -25,12 +25,17 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: true,
         }),
 
-      logout: () =>
+      logout: () => {
+        if (typeof document !== 'undefined') {
+          document.cookie = 'auth-token=; path=/; max-age=0';
+          document.cookie = 'user-role=; path=/; max-age=0';
+        }
         set({
           user: null,
           token: null,
           isAuthenticated: false,
-        }),
+        });
+      },
 
       updateUser: (updatedFields) =>
         set((state) => ({
