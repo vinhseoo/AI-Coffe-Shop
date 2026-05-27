@@ -70,6 +70,10 @@ public class Order extends BaseEntity {
     @Column(name = "customer_id")
     private Long customerId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
+    private Customer customer;
+
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
 

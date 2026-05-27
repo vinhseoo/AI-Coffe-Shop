@@ -17,6 +17,8 @@ import { OrderDetailModal } from '../../../components/order/OrderDetailModal';
 import { formatCurrency, formatDate } from '../../../lib/utils';
 import { Order, OrderType, PaymentMethod, CartItem, OrderStatus, PaymentStatus } from '../../../types/order';
 import { Topping } from '../../../types/menu';
+import { useCustomers } from '../../../hooks/useCustomers';
+import { CustomerForm } from '../../../components/customers/CustomerForm';
 import { 
   Search, 
   ShoppingCart, 
@@ -26,7 +28,10 @@ import {
   RefreshCw, 
   Coffee,
   Coins,
-  Utensils
+  Utensils,
+  User,
+  UserPlus,
+  X
 } from 'lucide-react';
 
 export default function POSPage() {
@@ -84,6 +89,14 @@ export default function POSPage() {
   const [payingOrder, setPayingOrder] = useState<Order | null>(null);
   const [payMethod, setPayMethod] = useState<PaymentMethod>('CASH');
 
+  // Customer attachment states for POS
+  const { fetchCustomers, createCustomer } = useCustomers();
+  const [customerSearch, setCustomerSearch] = useState('');
+  const [matchingCustomers, setMatchingCustomers] = useState<any[]>([]);
+  const [selectedCustomerForOrder, setSelectedCustomerForOrder] = useState<any | null>(null);
+  const [isNewCustomerModalOpen, setIsNewCustomerModalOpen] = useState(false);
+  const [isSearchingCustomer, setIsSearchingCustomer] = useState(false);
+
   // Load Menu and Categories
   useEffect(() => {
     fetchCategories(true);
@@ -102,6 +115,36 @@ export default function POSPage() {
       loadHistoryOrders(1);
     }
   }, [activeTab, historySearchQuery, historyOrderType, historyOrderStatus, historyPaymentStatus]);
+
+  // Debounced customer search
+  useEffect(() => {
+    if (customerSearch.trim().length >= 2) {
+      setIsSearchingCustomer(true);
+      const delayDebounce = setTimeout(async () => {
+        try {
+          const res = await fetchCustomers({ search: customerSearch }, 1, 5);
+          setMatchingCustomers(res.content || []);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          setIsSearchingCustomer(false);
+        }
+      }, 300);
+      return () => clearTimeout(delayDebounce);
+    } else {
+      setMatchingCustomers([]);
+    }
+  }, [customerSearch]);
+
+  const handleNewCustomerSubmit = async (data: { name: string; phone: string; email?: string; birthday?: string; note?: string }) => {
+    try {
+      const newCustomer = await createCustomer(data);
+      setSelectedCustomerForOrder(newCustomer);
+      setIsNewCustomerModalOpen(false);
+    } catch (err) {
+      // already toasted
+    }
+  };
 
   const loadProducts = () => {
     fetchMenuItems(selectedCategoryId, searchQuery, 1, 100);
@@ -257,6 +300,7 @@ export default function POSPage() {
       tableNumber: orderType === 'DINE_IN' ? tableNumber : undefined,
       note: cartNote,
       items: requestItems,
+      customerId: selectedCustomerForOrder ? selectedCustomerForOrder.id : undefined,
     };
 
     try {
@@ -268,6 +312,8 @@ export default function POSPage() {
 
       // 3. Clear cart and close checkout modal
       clearCart();
+      setSelectedCustomerForOrder(null);
+      setCustomerSearch('');
       setIsCheckoutModalOpen(false);
 
       // 4. Switch to history tab to see new order
@@ -558,6 +604,92 @@ export default function POSPage() {
 
             {/* Invoice Summary and Checkout config */}
             <div className="p-4 border-t border-gray-100 dark:border-gray-850 bg-gray-50/50 dark:bg-gray-900/30 space-y-4 shrink-0">
+              {/* Customer Attachment */}
+              <div className="space-y-1.5 pb-3 border-b border-gray-150 dark:border-gray-800 relative">
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] font-bold text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                    <User className="h-3.5 w-3.5 text-amber-700 dark:text-amber-500" />
+                    Thành viên tích điểm
+                  </span>
+                  {!selectedCustomerForOrder && (
+                    <button 
+                      type="button" 
+                      onClick={() => setIsNewCustomerModalOpen(true)}
+                      className="text-[10px] text-amber-705 hover:text-amber-900 dark:text-amber-500 dark:hover:text-amber-400 font-bold flex items-center gap-0.5"
+                    >
+                      <UserPlus className="h-3 w-3" /> Đăng ký nhanh
+                    </button>
+                  )}
+                </div>
+
+                {selectedCustomerForOrder ? (
+                  <div className="flex items-center justify-between bg-amber-50/65 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 p-2.5 rounded-xl">
+                    <div className="space-y-0.5">
+                      <p className="text-xs font-bold text-amber-900 dark:text-amber-450">
+                        {selectedCustomerForOrder.name} 
+                        <span className="text-[10px] font-normal text-gray-500 dark:text-gray-400 ml-1.5">
+                          ({selectedCustomerForOrder.phone})
+                        </span>
+                      </p>
+                      <p className="text-[9px] text-amber-700/80 dark:text-amber-500/80 font-medium">
+                        Hạng: {selectedCustomerForOrder.tier} • Điểm tích lũy: {selectedCustomerForOrder.loyaltyPoints}
+                      </p>
+                    </div>
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        setSelectedCustomerForOrder(null);
+                        setCustomerSearch('');
+                      }}
+                      className="p-1 text-gray-400 hover:text-rose-600 transition-colors"
+                      title="Hủy chọn khách"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <Input
+                      placeholder="Tìm tên hoặc SĐT khách..."
+                      value={customerSearch}
+                      onChange={(e) => setCustomerSearch(e.target.value)}
+                      className="text-xs py-1.5 h-8 bg-transparent"
+                    />
+                    {isSearchingCustomer && (
+                      <span className="absolute right-2.5 top-2.5">
+                        <Spinner size="sm" />
+                      </span>
+                    )}
+
+                    {/* Search results popover */}
+                    {matchingCustomers.length > 0 && (
+                      <div className="absolute left-0 right-0 bottom-full mb-1.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-lg z-20 max-h-40 overflow-y-auto py-1">
+                        {matchingCustomers.map((c) => (
+                          <button
+                            key={c.id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCustomerForOrder(c);
+                              setMatchingCustomers([]);
+                              setCustomerSearch('');
+                            }}
+                            className="w-full text-left px-3 py-1.5 hover:bg-gray-50 dark:hover:bg-gray-850 flex justify-between items-center text-xs transition-colors border-b border-gray-100 dark:border-gray-850 last:border-0"
+                          >
+                            <div>
+                              <p className="font-bold text-gray-800 dark:text-gray-200">{c.name}</p>
+                              <p className="text-[10px] text-gray-400 mt-0.5">{c.phone}</p>
+                            </div>
+                            <span className="text-[10px] bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 font-bold px-1.5 py-0.5 rounded">
+                              {c.loyaltyPoints} điểm
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div>
                   <span className="text-gray-400 block mb-1 font-semibold">Loại hóa đơn</span>
@@ -1037,6 +1169,16 @@ export default function POSPage() {
           </div>
         </div>
       )}
+
+      {/* ========================================================== */}
+      {/* QUICK NEW MEMBER REGISTRATION MODAL */}
+      {/* ========================================================== */}
+      <CustomerForm
+        isOpen={isNewCustomerModalOpen}
+        onClose={() => setIsNewCustomerModalOpen(false)}
+        onSubmit={handleNewCustomerSubmit}
+        initialData={null}
+      />
     </div>
   );
 }

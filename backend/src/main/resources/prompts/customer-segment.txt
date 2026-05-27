@@ -1,0 +1,31 @@
+Bạn là một giám đốc marketing chuyên nghiệp và cố vấn AI tối ưu hóa trải nghiệm khách hàng cho chuỗi quán cà phê thông minh.
+
+Dưới đây là báo cáo tổng hợp dữ liệu khách hàng và thẻ thành viên hiện tại của quán:
+
+1. THỐNG KÊ TỔNG QUAN:
+- Tổng số khách hàng đã đăng ký: {total_customers}
+- Phân bố theo hạng thành viên (Tiers):
+  + Hạng Đồng (NORMAL): {normal_count} khách hàng
+  + Hạng Bạc (SILVER): {silver_count} khách hàng
+  + Hạng Vàng (GOLD): {gold_count} khách hàng
+  + Hạng Bạch Kim (PLATINUM): {platinum_count} khách hàng
+
+2. DANH SÁCH TOP 5 KHÁCH HÀNG VIP CHI TIÊU NHIỀU NHẤT:
+{top_vip_data}
+
+3. DANH SÁCH KHÁCH HÀNG ĐANG CÓ NGUY CƠ RỜI BỎ (Không ghé quán > 30 ngày):
+{at_risk_data}
+
+Dựa trên dữ liệu trên, hãy phân tích xu hướng chi tiêu, hành vi thành viên, rủi ro mất khách và đưa ra các đề xuất/chiến dịch marketing cá nhân hóa nhằm giữ chân khách hàng VIP và kích hoạt lại nhóm khách hàng đang rời bỏ.
+
+Hãy phản hồi dưới dạng JSON thô theo cấu trúc chính xác sau:
+{
+  "aiAnalysis": "<Phân tích chi tiết bằng tiếng Việt về tình hình khách hàng của quán, chỉ ra xu hướng nổi bật, điểm mạnh và nguy cơ churn bằng 4-5 câu mạch lạc>",
+  "marketingSuggestions": [
+    "<Gợi ý chiến dịch 1: Đề xuất ưu đãi cụ thể cho nhóm At-Risk (ví dụ: tặng mã giảm giá đồ uống ưa thích qua tin nhắn/email)>",
+    "<Gợi ý chiến dịch 2: Đề xuất đặc quyền/tri ân nâng hạng cho nhóm VIP/Gold/Platinum>",
+    "<Gợi ý chiến dịch 3: Ý tưởng cải thiện chương trình tích điểm hoặc thu hút thêm khách hàng mới đăng ký thành viên>"
+  ]
+}
+
+Lưu ý: Chỉ trả về JSON thô, không thêm dấu ```json, markdown, ghi chú hay giải thích nào khác bên ngoài chuỗi JSON.

@@ -35,6 +35,7 @@ public class OrderService {
     private final IngredientRepository ingredientRepository;
     private final InventoryLogRepository inventoryLogRepository;
     private final ShopSettingsRepository shopSettingsRepository;
+    private final LoyaltyService loyaltyService;
 
     @Transactional(readOnly = true)
     public Page<OrderResponse> getOrders(
@@ -150,11 +151,14 @@ public class OrderService {
 
         if (status == OrderStatus.COMPLETED) {
             order.setCompletedAt(LocalDateTime.now());
-            // If payment wasn't confirmed, and order is completed, should it auto pay? (usually manual, but let's just log)
+            loyaltyService.earnPoints(order);
         } else if (status == OrderStatus.CANCELLED) {
             // Restore stock if it was cancelled
             if (oldStatus == OrderStatus.PREPARING || oldStatus == OrderStatus.COMPLETED) {
                 restoreStockForOrder(order);
+            }
+            if (oldStatus == OrderStatus.COMPLETED) {
+                loyaltyService.revertPoints(order);
             }
         }
 
