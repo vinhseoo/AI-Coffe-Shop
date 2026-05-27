@@ -185,11 +185,28 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 | ✅ Main Inventory Page | `app/(dashboard)/inventory/page.tsx` | Bảng điều khiển chính với các tab: Tồn kho, Nhà cung cấp, Nhật ký biến động |
 | ✅ Sub-pages | `app/(dashboard)/inventory/import/page.tsx`, `ai-forecast/page.tsx` | Trang biểu mẫu nhập kho hàng loạt và trang phân tích dữ liệu AI |
 
-
 ---
 
-## GIAI ĐOẠN 6 — CUSTOMER & LOYALTY MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 6 — CUSTOMER & LOYALTY MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ DB Migration | `db/migration/V7__init_customer_loyalty_tables.sql` | Tạo bảng `customers` (thông tin thành viên, hạng thẻ, chi tiêu) và `loyalty_transactions` (nhật ký tích/đổi điểm) |
+| ✅ JPA Entities | `Customer.java`, `LoyaltyTransaction.java` | Định nghĩa thực thể khách hàng và lịch sử điểm tích lũy |
+| ✅ Repositories | `CustomerRepository.java`, `LoyaltyTransactionRepository.java` | Query truy vấn khách hàng, kiểm tra trùng SĐT, lịch sử tích điểm |
+| ✅ Services | `CustomerService.java`, `LoyaltyService.java` | CRUD khách hàng, tính toán thăng hạng tự động (10k = 1 điểm, Normal/Silver/Gold/VIP), khấu trừ & hoàn điểm khi hủy đơn |
+| ✅ AI Customer Segmentation | `CustomerAIService.java` | Sử dụng Google Gemini phân nhóm khách hàng (VIP, Loyal, Normal, Churn Risk) và đưa ra gợi ý marketing |
+| ✅ Controllers | `CustomerController.java`, `CustomerAIController.java` | APIs quản lý thành viên, đổi điểm tích lũy, và phân tích AI |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ useCustomers Hook | `hooks/useCustomers.ts` | Quản lý state và API calls cho khách hàng, lịch sử tích điểm và AI Segmentation |
+| ✅ Member Management Page | `app/(dashboard)/customers/page.tsx` | Quản lý danh sách hội viên, tìm kiếm lọc hạng thẻ, tab Cố vấn AI phân nhóm khách hàng và gợi ý chiến lược marketing |
+| ✅ Member Detail Page | `app/(dashboard)/customers/[id]/page.tsx` | Xem chi tiết thông tin hội viên, biểu đồ KPIs chi tiêu/điểm/đơn hàng, timeline lịch sử tích/tiêu điểm và các hành động sửa/đổi quà |
+| ✅ POS Attachment Selector | `app/(dashboard)/pos/page.tsx` | Tích hợp tìm kiếm và gán khách hàng hội viên vào đơn hàng tại quầy POS, có nút "Đăng ký nhanh" thành viên mới trực tiếp |
+| ✅ Customer Modals | `components/customers/` | Popup `CustomerForm` (thêm/sửa khách hàng) và `RedeemPointsModal` (đổi điểm tích lũy) |
 
 ---
 
