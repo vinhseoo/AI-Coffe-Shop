@@ -240,5 +240,25 @@ Tài liệu này ghi lại **những gì đã được thực hiện** theo từ
 
 ---
 
-## GIAI ĐOẠN 9 — REPORTS MODULE
-*(Chưa bắt đầu)*
+## GIAI ĐOẠN 9 — REPORTS MODULE ✅
+
+### ✅ Backend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ DB Migration | `db/migration/V9__init_ai_reports_table.sql` | Tạo bảng `ai_reports` để lưu trữ báo cáo AI và đánh dấu lưu trữ |
+| ✅ JPA Entity | `AIReport.java` | Thực thể ánh xạ bảng báo cáo AI, thừa kế BaseEntity |
+| ✅ Repositories | `AIReportRepository.java`, cập nhật `OrderRepository.java`, `CustomerRepository.java`, `LoyaltyTransactionRepository.java` | Viết các native queries tính toán doanh thu theo giờ, danh mục, lợi nhuận ròng sản phẩm, tích lũy điểm và lượng hội viên |
+| ✅ DTOs | `dto/response/report/*` | Định nghĩa các DTO báo cáo doanh số, danh mục, lợi nhuận top sản phẩm, dự báo và phân tích tuần |
+| ✅ Services | `ReportService.java`, `ReportAIService.java` | Nghiệp vụ tổng hợp dữ liệu chuẩn và gọi Google Gemini AI dự báo doanh thu, tạo phân tích tuần và đề xuất kinh doanh |
+| ✅ Prompts | `resources/prompts/` | Thiết lập prompt templates: `report-weekly.txt`, `report-forecast.txt`, và `report-suggestions.txt` |
+| ✅ Controllers | `ReportController.java`, `ReportAIController.java` | APIs kết xuất báo cáo và kích hoạt sinh báo cáo AI |
+
+### ✅ Frontend
+| Hạng mục | File | Mô tả |
+|----------|------|--------|
+| ✅ useReports Hook | `hooks/useReports.ts` | Quản lý state và kết nối API báo cáo doanh số, tích điểm và kích hoạt phân tích AI |
+| ✅ Charts Components | `components/charts/` | Tạo các cấu phần Recharts: `HourlyBarChart` (cột doanh số theo giờ), `CategoryPieChart` (tròn phân bổ nhóm món), và `TopItemsChart` (ngang lợi nhuận sản phẩm) |
+| ✅ Markdown Viewer | `components/ai/AIReportViewer.tsx` | Cấu phần hiển thị và biên dịch văn bản báo cáo AI Markdown sang HTML đẹp mắt |
+| ✅ Reports Landing Page | `app/(dashboard)/reports/page.tsx` | Trang điều hướng trung tâm hiển thị các chỉ số KPIs tổng quát và lịch sử báo cáo AI |
+| ✅ Detailed Sales Page | `app/(dashboard)/reports/revenue/page.tsx` | Trang chi tiết tích hợp date range filter, hiển thị đầy đủ biểu đồ doanh thu lũy kế, giờ cao điểm, phân bổ nhóm và bảng chi tiết biên lợi nhuận ròng từng món nước |
+| ✅ AI Analysis Page | `app/(dashboard)/reports/ai-analysis/page.tsx` | Trang kích hoạt phân tích tuần, chạy dự báo, xem ý kiến đề xuất AI, lưu trữ bookmark và quản lý lịch sử báo cáo |

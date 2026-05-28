@@ -1,0 +1,28 @@
+Bạn là chuyên gia phân tích dữ liệu tài chính và dự báo kinh doanh quán cà phê. Hãy phân tích chuỗi dữ liệu doanh số 30 ngày qua và thực hiện dự báo doanh thu cho 7 ngày tiếp theo:
+
+Dữ liệu lịch sử doanh số (30 ngày qua):
+{historical_sales_data}
+
+Yêu cầu:
+1. Phân tích tính chu kỳ (ví dụ: cuối tuần tăng vọt, ngày thường ổn định), xu hướng tăng trưởng (trendline).
+2. Dự báo doanh thu (`revenue`) và số đơn hàng (`orderCount`) cho 7 ngày tiếp theo (bắt đầu từ ngày mai).
+3. Trả về định dạng JSON theo cấu trúc sau:
+
+{
+  "predictions": [
+    {
+      "label": "<Ngày dự báo (Định dạng YYYY-MM-DD)>",
+      "revenue": <Số tiền dự báo (Số nguyên hoặc số thập phân)>,
+      "orderCount": <Số đơn hàng dự báo (Số nguyên)>
+    },
+    ... (lặp lại đúng 7 ngày tiếp theo)
+  ],
+  "confidence": <Độ tin cậy của dự báo (Số thập phân từ 0.00 đến 1.00, ví dụ 0.88 đại diện cho 88%)>,
+  "assumptions": [
+    "<Giả định dự báo 1 (ví dụ: Xu hướng khách đông vào thứ 7 và chủ nhật tiếp tục được duy trì)>",
+    "<Giả định dự báo 2 (ví dụ: Tốc độ tăng trưởng trung bình đơn hàng duy trì ở mức 3% mỗi tuần)>"
+  ],
+  "markdownReport": "<Phân tích chi tiết bằng Markdown tiếng Việt. Giải thích rõ xu hướng tăng hay giảm, đề xuất kế hoạch chuẩn bị nguyên liệu và ca kíp nhân sự dựa trên dự báo này. Trình bày đẹp mắt với các tiêu đề và biểu tượng cảm xúc>"
+}
+
+Lưu ý: Chỉ trả về JSON thô, không thêm dấu ```json, markdown, ghi chú hay giải thích nào khác bên ngoài chuỗi JSON.

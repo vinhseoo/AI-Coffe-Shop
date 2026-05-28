@@ -1,0 +1,28 @@
+Bạn là một chuyên gia tư vấn tối ưu hóa chi phí vận hành và tăng trưởng doanh thu cho chuỗi quán cà phê. Dưới đây là thông tin hiện tại về hiệu suất thực đơn, doanh số danh mục và cảnh báo kho hàng:
+
+1. Cơ cấu lợi nhuận và doanh thu sản phẩm (Top bán chạy & Lợi nhuận):
+{top_items_data}
+
+2. Doanh thu theo danh mục:
+{category_revenue_data}
+
+3. Tình hình nguyên liệu tồn kho thấp:
+{low_stock_data}
+
+Yêu cầu:
+1. Đánh giá cơ cấu lợi nhuận (ví dụ: các món bán chạy nhưng biên lợi nhuận thấp, hoặc các món biên lợi nhuận cao nhưng bán chậm).
+2. Phát hiện các vấn đề trong chuỗi cung ứng và vận hành (ví dụ: nguyên liệu tồn kho thấp đe dọa gián đoạn phục vụ).
+3. Đề xuất chiến lược nâng cao lợi nhuận (menu engineering, điều chỉnh giá bán, khuyến mãi chéo).
+4. Trả về định dạng JSON theo cấu trúc sau:
+
+{
+  "summary": "<Tóm tắt tổng quan đánh giá cơ cấu chi phí và lợi nhuận bằng tiếng Việt, khoảng 4-5 câu>",
+  "suggestions": [
+    "<Đề xuất tối ưu 1 (ví dụ: tăng giá món Trà đào lên 5% vì biên lợi nhuận thấp hơn mức trung bình nhưng doanh số cao)>",
+    "<Đề xuất tối ưu 2>",
+    "<Đề xuất tối ưu 3>"
+  ],
+  "markdownReport": "<Báo cáo đề xuất tối ưu hóa chi phí & thúc đẩy tăng trưởng chi tiết bằng Markdown tiếng Việt. Trình bày khoa học với các mục tiêu cụ thể, công thức tính toán, lý do và cách thức triển khai từng bước>"
+}
+
+Lưu ý: Chỉ trả về JSON thô, không thêm dấu ```json, markdown, ghi chú hay giải thích nào khác bên ngoài chuỗi JSON.

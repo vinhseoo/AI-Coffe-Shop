@@ -31,4 +31,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query("SELECT c FROM Customer c WHERE c.lastVisitAt < :inactiveDate OR (c.lastVisitAt IS NULL AND c.createdAt < :inactiveDate)")
     List<Customer> findInactiveCustomers(@Param("inactiveDate") LocalDateTime inactiveDate);
+
+    Long countByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 }

@@ -84,19 +84,19 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'flex flex-col bg-amber-900 text-amber-50 transition-all duration-300 shrink-0',
+        'flex flex-col bg-sidebar-bg text-sidebar-fg transition-all duration-300 shrink-0',
         collapsed ? 'w-16' : 'w-60'
       )}
     >
       {/* Logo + shop name */}
-      <div className="flex items-center gap-3 px-4 py-5 border-b border-amber-800">
+      <div className="flex items-center gap-3 px-4 py-5 border-b border-sidebar-border">
         <span className="text-2xl shrink-0">☕</span>
         {!collapsed && (
           <div className="overflow-hidden">
             <p className="font-bold text-sm leading-tight truncate">
               {settings?.shopName ?? 'CaféAI'}
             </p>
-            <p className="text-xs text-amber-300">Quản lý thông minh</p>
+            <p className="text-xs text-sidebar-fg/75">Quản lý thông minh</p>
           </div>
         )}
       </div>
@@ -113,8 +113,8 @@ export function Sidebar() {
               className={cn(
                 'flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-amber-700 text-white'
-                  : 'text-amber-200 hover:bg-amber-800 hover:text-white'
+                  ? 'bg-sidebar-active-bg text-sidebar-active-fg'
+                  : 'text-sidebar-fg/80 hover:bg-sidebar-active-bg/20 hover:text-sidebar-fg'
               )}
             >
               <span className="shrink-0">{item.icon}</span>
@@ -127,7 +127,7 @@ export function Sidebar() {
       {/* Collapse toggle */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="flex items-center justify-center py-3 border-t border-amber-800 text-amber-400 hover:text-white hover:bg-amber-800 transition-colors"
+        className="flex items-center justify-center py-3 border-t border-sidebar-border text-sidebar-fg/60 hover:text-sidebar-active-fg hover:bg-sidebar-active-bg/20 transition-colors"
         title={collapsed ? 'Mở rộng' : 'Thu gọn'}
       >
         <ChevronLeft

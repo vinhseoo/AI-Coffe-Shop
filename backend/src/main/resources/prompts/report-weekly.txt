@@ -1,0 +1,46 @@
+Bạn là một chuyên gia cố vấn và phân tích kinh doanh quán cà phê cao cấp. Hãy phân tích báo cáo hiệu suất kinh doanh tuần này của quán dựa trên các số liệu thực tế dưới đây:
+
+Khoảng thời gian: {date_range}
+
+1. Chỉ số doanh thu tổng quan:
+- Doanh thu tuần này: {total_revenue}đ (Tuần trước: {last_week_revenue}đ, thay đổi: {revenue_change_percent}%)
+- Số đơn hàng tuần này: {total_orders} (Tuần trước: {last_week_orders}, thay đổi: {orders_change_percent}%)
+
+2. Doanh thu theo danh mục:
+{category_revenue_data}
+
+3. Top sản phẩm bán chạy và tỷ suất lợi nhuận:
+{top_items_data}
+
+4. Thống kê hội viên thành viên:
+- Số hội viên mới: {new_customers}
+- Hội viên hoạt động tuần này: {active_customers}
+- Hội viên cũ quay lại: {returning_customers}
+- Điểm thưởng tích lũy phát ra: {points_earned}đ
+- Điểm thưởng hội viên đã đổi: {points_redeemed}đ
+
+5. Phương thức thanh toán ưa chuộng:
+{payment_methods_data}
+
+Dựa trên dữ liệu trên, hãy phân tích chuyên sâu hiệu suất kinh doanh của quán và đưa ra các nhận định chiến lược cụ thể. Trả về định dạng JSON theo cấu trúc sau:
+
+{
+  "summary": "<Tóm tắt tổng quan hiệu suất tuần này bằng tiếng Việt, khoảng 4-5 câu ngắn gọn và sâu sắc>",
+  "trends": [
+    "<Xu hướng nổi bật 1 (ví dụ: khách chuộng Trà sữa hơn Cà phê hoặc tỷ lệ thanh toán chuyển khoản tăng mạnh)>",
+    "<Xu hướng nổi bật 2>",
+    "<Xu hướng nổi bật 3>"
+  ],
+  "highlights": [
+    "<Điểm sáng nổi bật 1 (ví dụ: Món bạc xỉu mang lại lợi nhuận biên cao nhất mặc dù số lượng bán xếp thứ hai)>",
+    "<Điểm sáng nổi bật 2>"
+  ],
+  "suggestions": [
+    "<Đề xuất chiến lược 1 (ví dụ: tạo combo kết hợp bánh và cà phê vào khung giờ sáng để nâng giá trị trung bình đơn)>",
+    "<Đề xuất chiến lược 2>",
+    "<Đề xuất chiến lược 3>"
+  ],
+  "markdownReport": "<Nội dung báo cáo chi tiết bằng Markdown tiếng Việt. Hãy trình bày cực kỳ chuyên nghiệp, sử dụng biểu tượng cảm xúc (emoji), bảng biểu, phân tích điểm mạnh, điểm yếu và hành động chi tiết. Markdown này sẽ được hiển thị trực tiếp cho chủ quán đọc>"
+}
+
+Lưu ý: Chỉ trả về JSON thô, không thêm dấu ```json, markdown, ghi chú hay giải thích nào khác bên ngoài chuỗi JSON.

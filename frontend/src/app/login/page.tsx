@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Input } from '../../components/ui/Input';
@@ -9,7 +9,7 @@ import { login } from '../../lib/auth';
 import { toast } from '../../hooks/useToast';
 import type { ApiError } from '../../types/api';
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') ?? '/dashboard';
@@ -87,6 +87,7 @@ export default function LoginPage() {
               isLoading={isLoading}
               className="w-full"
               size="lg"
+              variant="primary"
             >
               Đăng nhập
             </Button>
@@ -108,5 +109,17 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
+        <div className="text-sm font-semibold text-gray-500 dark:text-gray-400">Đang tải...</div>
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }

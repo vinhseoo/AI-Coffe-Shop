@@ -419,19 +419,19 @@ src/main/resources/prompts/
 ### 9.1 Backend
 
 #### Entity
-- [ ] `AIReport.java` — id, user(FK), reportType, title, content, promptUsed, metadata(JSON), isBookmarked
+- [x] `AIReport.java` — id, user(FK), reportType, title, content, promptUsed, metadata(JSON), isBookmarked
 
 #### DTOs
-- [ ] `RevenueReportResponse.java` — dataPoints(List<DateRevenuePair>), totalRevenue, totalOrders
-- [ ] `CategoryRevenueResponse.java` — categories(List<name, revenue, percentage>)
-- [ ] `TopItemResponse.java` — menuItemId, name, totalSold, revenue, profit
-- [ ] `CustomerStatsResponse.java` — newCustomers, returningCustomers, totalLoyaltyPoints
-- [ ] `AIReportResponse.java` — id, reportType, title, content, createdAt, isBookmarked
-- [ ] `AIWeeklyAnalysis.java` — summary, trends, highlights, suggestions
-- [ ] `AIRevenueForecast.java` — predictions(List<DateRevenuePair>), confidence, assumptions
+- [x] `RevenueReportResponse.java` — dataPoints(List<DateRevenuePair>), totalRevenue, totalOrders
+- [x] `CategoryRevenueResponse.java` — categories(List<name, revenue, percentage>)
+- [x] `TopItemResponse.java` — menuItemId, name, totalSold, revenue, profit
+- [x] `CustomerStatsResponse.java` — newCustomers, returningCustomers, totalLoyaltyPoints
+- [x] `AIReportResponse.java` — id, reportType, title, content, createdAt, isBookmarked
+- [x] `AIWeeklyAnalysis.java` — summary, trends, highlights, suggestions
+- [x] `AIRevenueForecast.java` — predictions(List<DateRevenuePair>), confidence, assumptions
 
 #### Services
-- [ ] `ReportService.java`:
+- [x] `ReportService.java`:
   - `getRevenue(from, to, groupBy)` — Query aggregate từ orders
   - `getRevenueByHour(date)` — Group by hour
   - `getRevenueByCategory(from, to)` — Join orders-items-menu-category
@@ -439,31 +439,31 @@ src/main/resources/prompts/
   - `getProfitByItem()` — revenue - (costPrice * totalSold)
   - `getCustomerStats(from, to)` — Thống kê khách
   - `getPaymentMethodStats(from, to)` — Tỷ lệ PTTT
-- [ ] `ReportAIService.java`:
+- [x] `ReportAIService.java`:
   - `analyzeWeekly()` — Lấy 2 tuần data → AI so sánh → insight
   - `forecastRevenue()` — Historical → AI predict
   - `generateImprovementSuggestions()` — Data → AI → actionable tips
 
 #### Repositories cần bổ sung Native Queries
-- [ ] `OrderRepository` — `@Query` tổng hợp doanh thu, group by date/hour/category
-- [ ] `OrderItemRepository` — `@Query` top items, profit by item
+- [x] `OrderRepository` — `@Query` tổng hợp doanh thu, group by date/hour/category
+- [x] `OrderItemRepository` — `@Query` top items, profit by item
 
 #### Controllers
-- [ ] `ReportController.java` — GET /api/reports/*
-- [ ] `ReportAIController.java` — POST /api/reports/ai/*
+- [x] `ReportController.java` — GET /api/reports/*
+- [x] `ReportAIController.java` — POST /api/reports/ai/*
 
 ### 9.2 Frontend
 
 #### Pages & Components
-- [ ] `app/(dashboard)/reports/page.tsx` — Dashboard báo cáo tổng quan
-- [ ] `app/(dashboard)/reports/revenue/page.tsx` — Doanh thu chi tiết + date picker
-- [ ] `app/(dashboard)/reports/ai-analysis/page.tsx` — AI phân tích + lịch sử AI reports
-- [ ] `components/charts/RevenueLineChart.tsx` — Doanh thu theo ngày/tuần/tháng
-- [ ] `components/charts/HourlyBarChart.tsx` — Doanh thu theo giờ (peak hours)
-- [ ] `components/charts/CategoryPieChart.tsx` — Tỷ lệ doanh thu theo danh mục
-- [ ] `components/charts/TopItemsChart.tsx` — Horizontal bar top 10 món
-- [ ] `components/ai/AIReportViewer.tsx` — Hiển thị AI report với markdown render
-- [ ] `components/ai/AISuggestionCard.tsx` — Card gợi ý từ AI với action button
+- [x] `app/(dashboard)/reports/page.tsx` — Dashboard báo cáo tổng quan
+- [x] `app/(dashboard)/reports/revenue/page.tsx` — Doanh thu chi tiết + date picker
+- [x] `app/(dashboard)/reports/ai-analysis/page.tsx` — AI phân tích + lịch sử AI reports
+- [x] `components/charts/RevenueLineChart.tsx` — Doanh thu theo ngày/tuần/tháng
+- [x] `components/charts/HourlyBarChart.tsx` — Doanh thu theo giờ (peak hours)
+- [x] `components/charts/CategoryPieChart.tsx` — Tỷ lệ doanh thu theo danh mục
+- [x] `components/charts/TopItemsChart.tsx` — Horizontal bar top 10 món
+- [x] `components/ai/AIReportViewer.tsx` — Hiển thị AI report với markdown render
+- [x] `components/ai/AISuggestionCard.tsx` — Card gợi ý từ AI với action button
 
 ---
 

@@ -1,8 +1,36 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Default theme color shades (Amber/Coffee) */
+  --theme-amber-50: #fffbeb;
+  --theme-amber-100: #fef3c7;
+  --theme-amber-200: #fde68a;
+  --theme-amber-300: #fcd34d;
+  --theme-amber-400: #fbbf24;
+  --theme-amber-500: #f59e0b;
+  --theme-amber-600: #d97706;
+  --theme-amber-700: #b45309;
+  --theme-amber-800: #92400e;
+  --theme-amber-850: #8b4d1b;
+  --theme-amber-900: #78350f;
+  --theme-amber-950: #451a03;
+
+  /* Sidebar defaults (Amber/Coffee theme) */
+  --theme-sidebar-bg: #78350f;
+  --theme-sidebar-fg: #fde68a;
+  --theme-sidebar-active-bg: #b45309;
+  --theme-sidebar-active-fg: #ffffff;
+  --theme-sidebar-border: #92400e;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,21 +40,37 @@
   --font-mono: var(--font-geist-mono);
   
   /* CaféAI design system custom variables */
-  --color-amber-850: #8b4d1b;
   --color-gray-150: #f4f5f7;
   --color-gray-250: #e2e8f0;
   --color-gray-850: #18222f;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Map standard Tailwind amber color palette to custom theme properties */
+  --color-amber-50: var(--theme-amber-50);
+  --color-amber-100: var(--theme-amber-100);
+  --color-amber-200: var(--theme-amber-200);
+  --color-amber-300: var(--theme-amber-300);
+  --color-amber-400: var(--theme-amber-400);
+  --color-amber-500: var(--theme-amber-500);
+  --color-amber-600: var(--theme-amber-600);
+  --color-amber-700: var(--theme-amber-700);
+  --color-amber-800: var(--theme-amber-800);
+  --color-amber-850: var(--theme-amber-850);
+  --color-amber-900: var(--theme-amber-900);
+  --color-amber-950: var(--theme-amber-950);
+
+  /* Map Sidebar elements to theme properties */
+  --color-sidebar-bg: var(--theme-sidebar-bg);
+  --color-sidebar-fg: var(--theme-sidebar-fg);
+  --color-sidebar-active-bg: var(--theme-sidebar-active-bg);
+  --color-sidebar-active-fg: var(--theme-sidebar-active-fg);
+  --color-sidebar-border: var(--theme-sidebar-border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

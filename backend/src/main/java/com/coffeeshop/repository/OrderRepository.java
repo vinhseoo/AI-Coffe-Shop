@@ -25,6 +25,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT COUNT(o) FROM Order o WHERE o.createdAt >= :start AND o.createdAt <= :end AND o.status <> 'CANCELLED'")
     Long countOrdersBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 
+    @Query("SELECT COUNT(DISTINCT o.customerId) FROM Order o WHERE o.createdAt >= :start AND o.createdAt <= :end AND o.customerId IS NOT NULL AND o.status <> 'CANCELLED'")
+    Long countActiveCustomersBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    @Query("SELECT COUNT(DISTINCT o.customerId) FROM Order o JOIN Customer c ON o.customerId = c.id WHERE o.createdAt >= :start AND o.createdAt <= :end AND c.createdAt < :start AND o.status <> 'CANCELLED'")
+    Long countReturningCustomersBetween(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
     @Query(value = "SELECT DATE_FORMAT(o.created_at, '%Y-%m-%d') as label, COALESCE(SUM(o.total_amount), 0) as revenue, COUNT(o.id) as orderCount " +
                    "FROM orders o " +
                    "WHERE o.created_at >= :start AND o.created_at <= :end AND o.status <> 'CANCELLED' " +
@@ -56,6 +62,42 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
                    "ORDER BY totalSold DESC " +
                    "LIMIT :limit", nativeQuery = true)
     List<Object[]> getTopSellingItems(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("limit") Integer limit);
+
+    @Query(value = "SELECT HOUR(o.created_at) as hourVal, COALESCE(SUM(o.total_amount), 0) as revenue, COUNT(o.id) as orderCount " +
+                   "FROM orders o " +
+                   "WHERE o.created_at >= :start AND o.created_at <= :end AND o.status <> 'CANCELLED' " +
+                   "GROUP BY HOUR(o.created_at) " +
+                   "ORDER BY hourVal ASC", nativeQuery = true)
+    List<Object[]> getHourlyRevenueSummary(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    @Query(value = "SELECT c.name as categoryName, COALESCE(SUM(oi.subtotal), 0) as revenue, SUM(oi.quantity) as quantity " +
+                   "FROM order_items oi " +
+                   "JOIN menu_item_variants miv ON oi.menu_item_variant_id = miv.id " +
+                   "JOIN menu_items mi ON miv.menu_item_id = mi.id " +
+                   "JOIN categories c ON mi.category_id = c.id " +
+                   "JOIN orders o ON oi.order_id = o.id " +
+                   "WHERE o.created_at >= :start AND o.created_at <= :end AND o.status <> 'CANCELLED' " +
+                   "GROUP BY c.name " +
+                   "ORDER BY revenue DESC", nativeQuery = true)
+    List<Object[]> getRevenueByCategory(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+    @Query(value = "SELECT mi.id as menuItemId, mi.name as name, SUM(oi.quantity) as totalSold, SUM(oi.subtotal) as revenue, SUM(oi.quantity * miv.cost_price) as totalCost, mi.image_url as imageUrl " +
+                   "FROM order_items oi " +
+                   "JOIN menu_item_variants miv ON oi.menu_item_variant_id = miv.id " +
+                   "JOIN menu_items mi ON miv.menu_item_id = mi.id " +
+                   "JOIN orders o ON oi.order_id = o.id " +
+                   "WHERE o.created_at >= :start AND o.created_at <= :end AND o.status <> 'CANCELLED' " +
+                   "GROUP BY mi.id, mi.name, mi.image_url " +
+                   "ORDER BY revenue DESC " +
+                   "LIMIT :limit", nativeQuery = true)
+    List<Object[]> getProfitByItem(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end, @Param("limit") Integer limit);
+
+    @Query(value = "SELECT o.payment_method as paymentMethod, COALESCE(SUM(o.total_amount), 0) as revenue, COUNT(o.id) as orderCount " +
+                   "FROM orders o " +
+                   "WHERE o.created_at >= :start AND o.created_at <= :end AND o.status <> 'CANCELLED' AND o.payment_method IS NOT NULL " +
+                   "GROUP BY o.payment_method " +
+                   "ORDER BY revenue DESC", nativeQuery = true)
+    List<Object[]> getPaymentMethodStats(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 
     Optional<Order> findByOrderCode(String orderCode);
 

@@ -4,7 +4,8 @@ export type AIReportType =
   | 'INVENTORY_FORECAST'
   | 'MENU_SUGGESTION'
   | 'MARKETING_CONTENT'
-  | 'BUSINESS_INSIGHT';
+  | 'BUSINESS_INSIGHT'
+  | 'REVENUE_FORECAST';
 
 export interface AIReport {
   id: number;
